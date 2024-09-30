@@ -14,6 +14,7 @@ class ResidualBlock(nn.Module):
         
         self.conv2 = nn.Sequential(
             nn.Conv2d(in_channels=out_channels,out_channels=out_channels,stride=stride,kernel_size=3,padding=1), 
+<<<<<<< HEAD
             nn.BatchNorm2d(out_channels))
 
         
@@ -30,3 +31,13 @@ class ResidualBlock(nn.Module):
         
         
         pass 
+=======
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU())
+        
+    
+    def forward(x):
+        pass 
+        
+        
+>>>>>>> 9c8d00a95ab0ab5369822750837b37ded4251a2f
