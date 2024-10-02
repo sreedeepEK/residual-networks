@@ -114,14 +114,3 @@ class ResNet(nn.Module):
 def resnet50(img_channels=3, num_classes=1000):
     return ResNet(Block,[3,4,6,3],img_channels,num_classes)
 
-
-# def main() -> None:
-#     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-#     net = resnet50(img_channels=3, num_classes=10).to(device)
-#     x = torch.randn(2, 3, 224, 224, device=device)
-
-#     y: torch.Tensor = net(x)
-#     print(f'{y.size() = }')
-
-# if __name__ == '__main__':
-#     main()
