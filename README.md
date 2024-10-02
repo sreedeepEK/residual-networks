@@ -2,44 +2,34 @@
 
 Implementation of "Deep Residual Learning for Image Recognition" from scratch in pure Pytorch.       
 
-#### Architecture
+#### Key Components
 
-**ResNet-50 Overview**
-## ResNet-50 Architecture
+The architecture begins with a convolutional layer that processes the input image and extracts features through filters, producing 64 feature maps. Following this, batch normalization is applied to the output of the convolutional layer, enhancing both the speed and stability of the training process. The ReLU activation function is then utilized to introduce non-linearity, enabling the model to learn complex patterns in the data.
 
-| **Layer Type**        | **Output Size**      | **Parameters** | **Description**                                           |
-|-----------------------|----------------------|----------------|-----------------------------------------------------------|
-| **Input**             | 3 x 224 x 224        | -              | Input image with 3 color channels (RGB) and size 224x224. |
-| **Conv1**             | 64 x 112 x 112       | 9,472          | 7x7 convolution, stride 2, padding 3, 64 filters.         |
-| **BatchNorm**         | 64 x 112 x 112       | 128            | Batch normalization for Conv1 output.                     |
-| **ReLU**              | 64 x 112 x 112       | -              | Activation function.                                       |
-| **Max Pooling**       | 64 x 56 x 56         | -              | 3x3 max pooling, stride 2, padding 1.                    |
+One of the most important features of ResNet-50 is its use of identity blocks. These blocks allow the original input to bypass certain layers, which helps maintain the flow of information through the network and makes training more manageable. Additionally, pooling layers are included to reduce the size of the feature maps, concentrating on the most significant features and making computations more efficient.
 
-### Residual Layers
+At the end of the architecture, a fully connected layer takes the final output from the preceding layers and generates classification scores for each class in the dataset.
 
-| **Layer Block**       | **Number of Blocks** | **Output Size**      | **Parameters per Block** | **Description**                                         |
-|-----------------------|----------------------|----------------------|--------------------------|---------------------------------------------------------|
-| **Layer 1**           | 3                    | 64 x 56 x 56         | -                        | Residual blocks with 64 filters, stride 1.            |
-| **Layer 2**           | 4                    | 128 x 28 x 28        | -                        | Residual blocks with 128 filters, stride 2.           |
-| **Layer 3**           | 6                    | 256 x 14 x 14        | -                        | Residual blocks with 256 filters, stride 2.           |
-| **Layer 4**           | 3                    | 512 x 7 x 7          | -                        | Residual blocks with 512 filters, stride 2.           |
+ResNet-50 stands out due to its effective residual learning approach, which simplifies the task of training very deep networks. The inclusion of skip connections allows gradients to flow easily during training, thereby preventing issues like vanishing gradients. As a result, ResNet-50 often outperforms many traditional models, making it a favored choice for various image classification tasks.
 
-### Final Layers
+#### Why ResNet
 
-| **Layer Type**        | **Output Size**      | **Parameters** | **Description**                                           |
-|-----------------------|----------------------|----------------|-----------------------------------------------------------|
-| **Adaptive Average Pooling** | 512 x 1 x 1      | -              | Reduces feature map to a single value per channel.       |
-| **Flatten**           | 512                  | -              | Converts 3D feature maps to 1D vector.                   |
-| **Linear (Fully Connected)** | num_classes (10) | 5,130          | Outputs class scores (num_classes = 10).                 |
-
-### Total Parameters
-
-- **Total Parameters**: Approximately 23 million (23M)
+- **Residual Learning**: The main idea of ResNet is that it allows the model to learn the difference between the output and the input (the residual), which makes it easier to train very deep networks.
+- **Skip Connections**: These connections help gradients flow through the network without vanishing, allowing for better training of deeper models.
+- **Performance**: ResNet-50 has shown to perform better on various image classification tasks compared to traditional networks of similar depth due to its innovative architecture.
 
 
 #### Advantages of this Architecture
 
-  Addressing Vanishing Gradients:
+- **Addressing Vanishing Gradients**:
       Traditional deep networks often face the problem of vanishing gradients, where the gradients become very small as they propagate back through many layers, making training difficult. ResNet’s skip connections help preserve the gradient, allowing for more effective training of deeper networks.
 
-  Better Performance:
+- **Better Performance**:
+  ResNet architectures, including ResNet-50, have consistently outperformed many other deep learning architectures in image classification tasks, achieving state-of-the-art results in competitions like ImageNet.
+
+#### References
+
+This project is based on the following paper:
+He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. "Deep Residual Learning for Image Recognition." In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 770-778. 2016.
+
+You can access the paper [here](https://arxiv.org/pdf/1512.03385).
