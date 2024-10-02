@@ -26,6 +26,6 @@ This architecture stands out due to its effective residual learning approach, wh
 
 #### References
 
-You can access the paper [here](https://arxiv.org/pdf/1512.03385).
+You can access the paper [here](https://arxiv.org/pdf/1512.03385).                   
 This project is based on the following paper:
 He, Kaiming, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. "Deep Residual Learning for Image Recognition." In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 770-778. 2016.
