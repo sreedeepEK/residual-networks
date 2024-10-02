@@ -12,15 +12,32 @@ rather than the original unreferenced functions.
 '''
 
 class Block(nn.Module):
+    
+    
     expansion = 4  # Class attribute for expansion
+
+    '''
+    Expansion in ResNet
+
+    Definition:
+        Expansion refers to increasing the number of output channels in a convolutional layer within a residual block.
+
+    Purpose:
+        Enhance Learning: More channels mean more filters, enabling the model to capture more complex features.
+        Gradient Flow: Helps gradients flow through deeper networks, aiding training.
+        Skip Connections: Ensures input and output dimensions match for the addition operation.
+        Improves Representational Power: Allows the network to learn richer representations of the data.
+    '''
 
     def __init__(self, in_channels, out_channels, identity_downsample=None, stride=1):
         super(Block, self).__init__()
 
         self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=1, padding=0)
         self.bn1 = nn.BatchNorm2d(out_channels)
+        
         self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=stride, padding=1)
         self.bn2 = nn.BatchNorm2d(out_channels)
+        
         self.conv3 = nn.Conv2d(out_channels, out_channels * Block.expansion, kernel_size=1, stride=1, padding=0)
         self.bn3 = nn.BatchNorm2d(out_channels * Block.expansion)
 
@@ -41,6 +58,9 @@ class Block(nn.Module):
         x = self.conv3(x)
         x = self.bn3(x)
 
+
+        #adding the identity shortcut,which allows the network to learn the residual function. 
+        
         if self.identity_downsample:
             identity = self.identity_downsample(identity)
 
@@ -72,7 +92,7 @@ class ResNet(nn.Module):
         self.linear = nn.Linear(512*block.expansion, num_classes)
          
         
-            
+    # method used to define the blocks
     def _make_layer(self, block, planes, num_blocks, stride=1):
         identity_downsample = None
         layers = []
@@ -80,8 +100,7 @@ class ResNet(nn.Module):
         if stride != 1 or self.in_planes != planes * block.expansion:
             identity_downsample = nn.Sequential(
                 nn.Conv2d(self.in_planes, planes * block.expansion, kernel_size=1, stride=stride),
-                nn.BatchNorm2d(planes * block.expansion)
-            )
+                nn.BatchNorm2d(planes * block.expansion))
 
         layers.append(block(self.in_planes, planes, identity_downsample, stride))
         self.in_planes = planes * block.expansion
@@ -91,6 +110,8 @@ class ResNet(nn.Module):
 
         return nn.Sequential(*layers)
     
+    
+    #forward function
     def forward(self,x):
         out = self.relu(self.bn1(self.conv1(x)))
         
