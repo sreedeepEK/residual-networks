@@ -18,7 +18,7 @@ This architecture stands out due to its effective residual learning approach, wh
 - Skip Connections: These connections help gradients flow through the network without vanishing, allowing for better training of deeper models.
 - Performance: Residual networks have demonstrated superior performance on various image classification tasks compared to traditional networks of similar depth due to their innovative architecture.
 
-#### dvantages of This Architecture
+#### Advantages of This Architecture
 
 - Addressing Vanishing Gradients: Traditional deep networks often face the problem of vanishing gradients, where the gradients become very small as they propagate back through many layers, making training difficult. Skip connections help preserve the gradient, allowing for more effective training of deeper networks.
 
